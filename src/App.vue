@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="{ 'app--extension': isExtension }">
-    <template v-if="loaded">
+    <template v-if="networkUnreachable || loaded">
       <router-view />
     </template>
     <VueLoadingIndicator v-else-if="showLoading" class="overlay fixed big" />
@@ -31,6 +31,7 @@ const LOADING_ICON_TIMEOUT = 300;
 export default {
   data() {
     return {
+      networkUnreachable: false,
       openModal: false,
       initialized: false,
       showLoading: false,
@@ -53,9 +54,11 @@ export default {
       clearTimeout(loadingTimeout);
 
       this.showLoading = false;
+      this.networkUnreachable = false;
     }).catch(() => {
       this.openModal = true;
       this.showLoading = false;
+      this.networkUnreachable = true;
     });
   },
   beforeUpdate() {
