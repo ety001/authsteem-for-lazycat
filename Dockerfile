@@ -11,7 +11,10 @@ RUN cd /app && \
 FROM nginx:latest
 WORKDIR /app
 EXPOSE 80
+RUN apk add --no-cache nodejs supervisor
 COPY --from=0 /app/docker_config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=0 /app/docker_config/supervisord.conf /etc/supervisord.conf
+COPY --from=0 /app/backend/server.js /app/server.js
 COPY --from=0 /app/www /app
 STOPSIGNAL SIGINT
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
