@@ -31,7 +31,7 @@
 // }
 
 // src/helpers/keychain.js
-const axios = require('axios');
+const axios = require('axios').defaults;
 
 const DATA_PATH = '/db';
 
