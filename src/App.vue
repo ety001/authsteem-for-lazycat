@@ -4,6 +4,22 @@
       <router-view />
     </template>
     <VueLoadingIndicator v-else-if="showLoading" class="overlay fixed big" />
+    <VueModal
+      v-if="openModal"
+      title="Bug report preview"
+      locked="true"
+      class="small"
+      @close="open = false"
+    >
+      <div class="default-body">
+        The API URL is not visitable.<br>
+        Please check your network connection, <br />
+        or edit the API URL in the settings.
+      </div>
+      <div slot="footer" class="actions">
+        <VueButton class="primary" @click="openModal = false">Close</VueButton>
+      </div>
+    </VueModal>
   </div>
 </template>
 
@@ -15,6 +31,7 @@ const LOADING_ICON_TIMEOUT = 300;
 export default {
   data() {
     return {
+      openModal: false,
       initialized: false,
       showLoading: false,
     };
@@ -35,6 +52,9 @@ export default {
     this.$store.dispatch('getDynamicGlobalProperties').then(() => {
       clearTimeout(loadingTimeout);
 
+      this.showLoading = false;
+    }).catch(() => {
+      this.openModal = true;
       this.showLoading = false;
     });
   },
