@@ -17,6 +17,7 @@ COPY --from=0 /app/backend/server.js /app/server.js
 COPY --from=0 /app/www /app
 
 RUN apk add --no-cache nodejs npm supervisor nginx && \
+  mkdir -p /run/nginx && \
   npm install express sqlite3
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
