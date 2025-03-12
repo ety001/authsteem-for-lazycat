@@ -72,7 +72,8 @@ export default {
       ]];
       // encode by steemuri
       const data = encodeOps(ops).replace('steem://', '');
-      window.open(`${pkg.homepage}/${data}`);
+      const currentHost = window.location.origin;
+      window.open(`${currentHost}/${data}`);
     },
   },
 };
