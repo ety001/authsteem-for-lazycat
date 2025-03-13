@@ -56,12 +56,12 @@ export default {
   },
   methods: {
     ...mapActions(['logout']),
-    loadKeychain() {
-      const keychain = getKeychain();
+    async loadKeychain() {
+      const keychain = await getKeychain();
       this.usernames = Object.keys(keychain);
     },
-    removeAccount(username) {
-      removeFromKeychain(username);
+    async removeAccount(username) {
+      await removeFromKeychain(username);
       this.loadKeychain();
     },
   },

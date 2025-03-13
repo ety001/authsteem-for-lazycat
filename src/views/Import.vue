@@ -309,14 +309,14 @@ export default {
           data: new triplesec.Buffer(JSON.stringify(keys)),
           key: new triplesec.Buffer(key),
         },
-        (encryptError, buff) => {
+        async (encryptError, buff) => {
           if (encryptError) {
             this.isLoading = false;
             console.log('err', encryptError);
             return;
           }
 
-          addToKeychain(username, buff.toString('hex'));
+          await addToKeychain(username, buff.toString('hex'));
 
           this.startLogin();
         },

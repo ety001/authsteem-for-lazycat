@@ -47,7 +47,7 @@ export async function getKeychain() {
     return users;
   } catch (error) {
     console.error('Error get all accounts:', error);
-    return false;
+    return {};
   }
 }
 

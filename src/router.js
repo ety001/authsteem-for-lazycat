@@ -25,9 +25,11 @@ const BroadcastOp = () => import(/* webpachChunkName: "dev-tools" */ '@/views/De
 
 Vue.use(Router);
 
-const requireAuth = (to, from, next, params) => {
+const requireAuth = async (to, from, next, params) => { // 添加 async
   if (!store.state.auth.account.name) {
-    const name = hasAccounts() ? 'login' : 'import';
+    // 等待异步的 hasAccounts() 结果
+    const hasAcc = await hasAccounts();
+    const name = hasAcc ? 'login' : 'import';
     const redirect = to.fullPath === '/' ? undefined : to.fullPath;
     const query = { redirect };
     if (params && params.authority) query.authority = params.authority;

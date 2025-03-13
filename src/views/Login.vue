@@ -141,8 +141,8 @@ export default {
       this.username = '';
       this.key = '';
     },
-    loadKeychain() {
-      this.keychain = getKeychain();
+    async loadKeychain() {
+      this.keychain = await getKeychain();
       const usernames = Object.keys(this.keychain);
       if (usernames.length > 0) {
         [this.username] = usernames;
