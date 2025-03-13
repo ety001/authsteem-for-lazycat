@@ -31,9 +31,9 @@
 // }
 
 // src/helpers/keychain.js
-const axios = require('axios').defaults;
+import axios from 'axios';
 
-const DATA_PATH = '/db';
+const DATA_PATH = '';
 
 export async function getKeychain() {
   try {
