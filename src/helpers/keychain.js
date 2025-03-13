@@ -39,9 +39,11 @@ export async function getKeychain() {
   try {
     const response = await axios.get(`${DATA_PATH}/getAllUsers`);
     const users = {};
-    response.data.users.forEach(user => {
-      users[user.username] = user.encrypted_password;
-    });
+    if (response.data.users) {
+      response.data.users.forEach(user => {
+        users[user.username] = user.encrypted_password;
+      });
+    }
     return users;
   } catch (error) {
     console.error('Error get all accounts:', error);
